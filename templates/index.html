@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forex-Dashboard</title>
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .block {
+        width: 900px;
+        height: 200px;
+        margin: 20px;
+        background-color: #00000;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mini-block {
+        width: 50px;
+        height: 30px;
+        margin: 5px;
+        background-color: #ccc;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Demo:</h2>
+    <div class="block" id="demoBlock">
+        <!-- Mini blocks will be dynamically added here -->
+    </div>
+</div>
+
+<div class="container">
+    <h2>Live:</h2>
+    <div class="block" id="liveBlock">
+        <!-- Mini blocks will be dynamically added here -->
+    </div>
+</div>
+
+<div class="container">
+    <h2>Challenge/Funded:</h2>
+    <div class="block" id="challengeBlock">
+        <!-- Mini blocks will be dynamically added here -->
+    </div>
+</div>
+
+<script>
+    // Data representing the number of accounts for each type
+    var demoAccounts = 3;
+    var liveAccounts = 2;
+    var challengeAccounts = 3;
+
+    // Function to dynamically create mini blocks
+    function createMiniBlocks(containerId, numAccounts) {
+        var container = document.getElementById(containerId);
+        for (var i = 1; i <= numAccounts; i++) {
+            var miniBlock = document.createElement('div');
+            miniBlock.className = 'mini-block';
+            miniBlock.textContent = i;
+            miniBlock.onclick = function() {
+                navigateToPage(this.textContent); // Pass the text content as data
+            };
+            container.appendChild(miniBlock);
+        }
+    }
+
+    // Call the function to create mini blocks for each type
+    createMiniBlocks('demoBlock', demoAccounts);
+    createMiniBlocks('liveBlock', liveAccounts);
+    createMiniBlocks('challengeBlock', challengeAccounts);
+
+    // Function to navigate to another page
+    function navigateToPage(data) {
+        // Navigate to another page, passing along the data
+        window.location.href = 'another_page.html?data=' + encodeURIComponent(data);
+    }
+</script>
+
+
+</body>
+</html>
