@@ -54,18 +54,14 @@
 </div>
 
 <script>
-    // Data representing the number of accounts for each type
-    var demoAccounts = 3;
-    var liveAccounts = 2;
-    var challengeAccounts = 3;
+    var data_dict = {{ data_dict | tojson | safe }};
 
-    // Function to dynamically create mini blocks
-    function createMiniBlocks(containerId, numAccounts) {
+    function createMiniBlocks(containerId, data) {
         var container = document.getElementById(containerId);
-        for (var i = 1; i <= numAccounts; i++) {
+        for (var i = 0; i < data.length; i++) {
             var miniBlock = document.createElement('div');
             miniBlock.className = 'mini-block';
-            miniBlock.textContent = i;
+            miniBlock.textContent = data[i].Name;
             miniBlock.onclick = function() {
                 navigateToPage(this.textContent); // Pass the text content as data
             };
@@ -74,9 +70,9 @@
     }
 
     // Call the function to create mini blocks for each type
-    createMiniBlocks('demoBlock', demoAccounts);
-    createMiniBlocks('liveBlock', liveAccounts);
-    createMiniBlocks('challengeBlock', challengeAccounts);
+    createMiniBlocks('demoBlock', data_dict['Demo']);
+    createMiniBlocks('liveBlock', data_dict['Live']);
+    createMiniBlocks('challengeBlock', data_dict['Challenge/Funded']);
 
     // Function to navigate to another page
     function navigateToPage(data) {
@@ -84,7 +80,6 @@
         window.location.href = 'another_page.html?data=' + encodeURIComponent(data);
     }
 </script>
-
 
 </body>
 </html>
