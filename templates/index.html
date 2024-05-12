@@ -57,35 +57,59 @@
 <script>
     var data_dict = {{ data_dict | tojson | safe }};
 
-    function createMiniBlocks(containerId, data) {
-        var container = document.getElementById(containerId);
-        for (var i = 0; i < data.length; i++) {
-            var miniBlock = document.createElement('div');
-            miniBlock.className = 'mini-block';
-            miniBlock.textContent = data[i].Name;
-            miniBlock.onclick = function() {
-                navigateToPage(data[this.dataset.index]); // Pass the data associated with the clicked mini block
-            };
-            miniBlock.dataset.index = i; // Set a custom data attribute to store the index of the data
-            container.appendChild(miniBlock);
-        }
-    }
+    
 
-    // Call the function to create mini blocks for each type
+    function createTable(containerId, data) {
+        var container = document.getElementById(containerId);
+        var table = container.querySelector('table.account-table');
+    
+        // If table doesn't exist, create it
+        if (!table) {
+            table = document.createElement('table');
+            table.className = 'account-table';
+    
+            // Create table headers
+            var headers = Object.keys(data[0]); // Assuming the first object in the array has all keys
+            var headerRow = document.createElement('tr');
+            headers.forEach(function(header) {
+                var th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+    
+            container.appendChild(table);
+        }
+    
+        // Populate table with data (add rows)
+        data.forEach(function(entry) {
+            var row = document.createElement('tr');
+            headers.forEach(function(header) {
+                var td = document.createElement('td');
+                td.textContent = entry[header];
+                row.appendChild(td);
+            });
+            table.appendChild(row);
+        });
+    }
+    
+    
+    
+    
     if (data_dict.hasOwnProperty('demo') && data_dict['demo'].length > 0) {
-        createMiniBlocks('demoBlock', data_dict['demo']);
+        createTable('demoBlock', data_dict['demo']);
     }
     
     if (data_dict.hasOwnProperty('live') && data_dict['live'].length > 0) {
-        createMiniBlocks('liveBlock', data_dict['live']);
+        createTable('liveBlock', data_dict['live']);
     }
     
     if (data_dict.hasOwnProperty('challenge') && data_dict['challenge'].length > 0) {
-        createMiniBlocks('challengeBlock', data_dict['challenge']);
+        createTable('challengeBlock', data_dict['challenge']);
     }
     
     if (data_dict.hasOwnProperty('funded') && data_dict['funded'].length > 0) {
-        createMiniBlocks('challengeBlock', data_dict['funded']);
+        createTable('challengeBlock', data_dict['funded']);
     }
     
     
