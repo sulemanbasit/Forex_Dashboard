@@ -1,3 +1,4 @@
 Name,Location,Balance,Equity,Margin,Free Margin,Floating PnL,Type
-1234,vps1,194566,185933,58,100,505,Demo
-5678,vps2,546546,54654,80,10,600,Funded
+1234,vps1,194566,185933,58,100,505,demo
+5678,vps2,546546,54654,80,10,600,funded
+15487,vps1,194566,185933,58,100,505,demo

@@ -23,10 +23,11 @@
     }
 
     .mini-block {
-        width: 50px;
-        height: 30px;
+        width: 150px;
+        height: 100px;
         margin: 5px;
         background-color: #ccc;
+        cursor: pointer;
     }
 </style>
 </head>
@@ -63,17 +64,31 @@
             miniBlock.className = 'mini-block';
             miniBlock.textContent = data[i].Name;
             miniBlock.onclick = function() {
-                navigateToPage(this.textContent); // Pass the text content as data
+                navigateToPage(data[this.dataset.index]); // Pass the data associated with the clicked mini block
             };
+            miniBlock.dataset.index = i; // Set a custom data attribute to store the index of the data
             container.appendChild(miniBlock);
         }
     }
 
     // Call the function to create mini blocks for each type
-    createMiniBlocks('demoBlock', data_dict['Demo']);
-    createMiniBlocks('liveBlock', data_dict['Live']);
-    createMiniBlocks('challengeBlock', data_dict['Challenge/Funded']);
-
+    if (data_dict.hasOwnProperty('demo') && data_dict['demo'].length > 0) {
+        createMiniBlocks('demoBlock', data_dict['demo']);
+    }
+    
+    if (data_dict.hasOwnProperty('live') && data_dict['live'].length > 0) {
+        createMiniBlocks('liveBlock', data_dict['live']);
+    }
+    
+    if (data_dict.hasOwnProperty('challenge') && data_dict['challenge'].length > 0) {
+        createMiniBlocks('challengeBlock', data_dict['challenge']);
+    }
+    
+    if (data_dict.hasOwnProperty('funded') && data_dict['funded'].length > 0) {
+        createMiniBlocks('challengeBlock', data_dict['funded']);
+    }
+    
+    
     // Function to navigate to another page
     function navigateToPage(data) {
         // Navigate to another page, passing along the data

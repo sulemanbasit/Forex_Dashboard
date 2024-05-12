@@ -1,5 +1,5 @@
 ID,Name,Location,Balance,Equity,Margin,Free Margin,Floating PnL,Type
 959421,db_wecopy_trade_1,vps_64,10619.64,10619.64,0.0,10619.64,0.0,funded
 962558,db_wecopy_trade_2,vps_97,9686.11,9686.11,0.0,9686.11,0.0,funded
-962668,john_wecopy_trade_1,vps_71,10004.0,9844.35,1250.18,8594.17,-159.64999999999964,funded
-7041022,xxxx,xxxx,100000.0,100000.0,0.0,100000.0,0.0,xxx
+962668,john_wecopy_trade_1,vps_71,10004.0,9844.35,1250.18,8594.17,-159.64999999999964,challenge
+472668,anthony_wecopy_trade_1,vps_71,10004.0,9844.35,1250.18,8594.17,-159.64999999999964,live
