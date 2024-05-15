@@ -12,6 +12,10 @@
     background-color: #e5e5e5;
 }
 
+.table_row {
+    text-align: center;
+}
+
 .table_cell {
     padding: 8px;
 }
