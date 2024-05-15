@@ -30,6 +30,11 @@
         background-color: #ccc;
         cursor: pointer;
     }
+
+    .scrollable-table {
+        overflow-y: auto; /* Add vertical scrollbar when content exceeds block height */
+        max-height: 180px; /* Define maximum height for the block */
+    }
 </style>
 </head>
 <body>
@@ -38,22 +43,24 @@
     <h2>Demo:</h2>
     <div class="block" id="demoBlock">
         <!-- Mini tables will be dynamically added here -->
-        <table class='table'>
-            <tr class='table_header'>
-                {% for header in headings %}
-                <th class='table_cell'> {{ header }} </th>
-                {% endfor %}
-            </tr>
-            {% for row in data %}
-                {% if 'demo' in row %}
-                <tr class='table_row'>
-                    {% for value in row %}
-                        <td class='table_cell'> {{ value }} </td>
+        <div class = 'scrollable-table'>
+            <table class='table'>
+                <tr class='table_header'>
+                    {% for header in headings %}
+                    <th class='table_cell'> {{ header }} </th>
                     {% endfor %}
                 </tr>
-                {% endif %}
-            {% endfor %}
-        </table>
+                {% for row in data %}
+                    {% if 'demo' in row %}
+                    <tr class='table_row'>
+                        {% for value in row %}
+                            <td class='table_cell'> {{ value }} </td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
 
@@ -61,22 +68,24 @@
     <h2>Live:</h2>
     <div class="block" id="liveBlock">
         <!-- Mini blocks will be dynamically added here -->
-        <table class='table'>
-            <tr class='table_header'>
-                {% for header in headings %}
-                <th> {{ header }} </th>
-                {% endfor %}
-            </tr>
-            {% for row in data %}
-                {% if 'live' in row %}
-                <tr class='table_row'>
-                    {% for value in row %}
-                        <td class='table_cell'> {{ value }} </td>
+        <div class = 'scrollable-table'>
+            <table class='table'>
+                <tr class='table_header'>
+                    {% for header in headings %}
+                    <th> {{ header }} </th>
                     {% endfor %}
                 </tr>
-                {% endif %}
-            {% endfor %}
-        </table>
+                {% for row in data %}
+                    {% if 'live' in row %}
+                    <tr class='table_row'>
+                        {% for value in row %}
+                            <td class='table_cell'> {{ value }} </td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
 
@@ -84,21 +93,23 @@
     <h2>Challenge/Funded:</h2>
     <div class="block" id="challengeBlock">
         <!-- Mini blocks will be dynamically added here -->
-        <table class='table'>
-            <tr class='table_header'>
-                {% for header in headings %}
-                <th> {{ header }} </th>
-                {% endfor %}
-            </tr>
-            {% for row in data %}
-                {% if 'funded' in row or 'challenge' in row %}
-                <tr class='table_row'>
-                    {% for value in row %}
-                        <td class='table_cell'> {{ value }} </td>
+        <div class = 'scrollable-table'>
+            <table class='table'>
+                <tr class='table_header'>
+                    {% for header in headings %}
+                    <th> {{ header }} </th>
                     {% endfor %}
                 </tr>
-                {% endif %}
-            {% endfor %}
-        </table>
+                {% for row in data %}
+                    {% if 'funded' in row or 'challenge' in row %}
+                    <tr class='table_row'>
+                        {% for value in row %}
+                            <td class='table_cell'> {{ value }} </td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
