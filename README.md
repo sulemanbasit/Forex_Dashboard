@@ -3,11 +3,11 @@
 # Forex_Dashboard
 Going with main Python API Data Fetch and this only supports MT5 only. There is not support for MT4 at the moment.
 
-![Python API](/.eraser/hsDlg3dpdZh3to4ZMfH7___RjBDyi3vteXAY5KNDoWEt0Ma2Iv2___---figure---r5tIrUHLFQ5XF4UlsOEye---figure---Rb004950HLmiZUOlSe0lwg.png "Python API")
+![Python API](/.eraser/hsDlg3dpdZh3to4ZMfH7___RjBDyi3vteXAY5KNDoWEt0Ma2Iv2___---figure---0_feIFNZKJKSZYWs8gdoX---figure---Rb004950HLmiZUOlSe0lwg.png "Python API")
 
 We might consider REST API data fetch as well in the future. The REST API version will also have support for MT4 and MT5 as well. This is what the future version of the implementation looks like:
 
-![REST API](undefined "REST API")
+![REST API](/.eraser/hsDlg3dpdZh3to4ZMfH7___RjBDyi3vteXAY5KNDoWEt0Ma2Iv2___---figure---Ua7E2hCv2ZfLWMcinW2dP---figure---1aY05rM0n1sYZqVFmTqhRA.png "REST API")
 
 
 
