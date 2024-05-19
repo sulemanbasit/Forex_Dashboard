@@ -4,7 +4,7 @@ import MetaTrader5 as mt5
 mt5.initialize()
 
 import pandas as pd
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import time
 
 
@@ -19,10 +19,18 @@ def fetch_account_info():
     location_list = []
     balance_list = []
     equity_list = []
+    # loss_margin = []
     margin_list = []
     margin_free_list = []
     pnl_list = []
     type_list = []
+    percentage_difference_balance = [] # (equity-startingBalance)/startingBalance
+    percentage_difference_equity = [] # (equity-startingEquity)/startingEquity
+    loss_threshold = []
+    Server_Time = []
+    Local_Time = [] # purpose is to see how current is the data
+    
+    
 
     for i in range(df_credentials.shape[0]): # access all rows
         mt5.login(int(df_credentials.iloc[i]["Login"]), df_credentials.iloc[i]["Password"], df_credentials.iloc[i]["Server"]) # login has to be integer otherwise it won't work
@@ -36,6 +44,7 @@ def fetch_account_info():
         print("Equity: " + str(accountInfo.equity))
         print("Profit: " + str(accountInfo.profit))
         print("Free Margin: " + str(accountInfo.margin_free))
+        
 
 
         # This is needed to extract server time
@@ -53,6 +62,13 @@ def fetch_account_info():
             # Convert last tick time from seconds to a datetime object
             last_tick_time_datetime = datetime.fromtimestamp(last_tick_time, timezone.utc)
             print("Server time:", last_tick_time_datetime)
+            
+            # Define the MST (Mountain Standard Time) timezone offset
+            MST = timezone(timedelta(hours=-7))  # MST is UTC-7
+
+            # Convert the server time to MST
+            local_time_mst = last_tick_time_datetime.astimezone(MST)
+            print("Local time (MST):", local_time_mst)
         else:
             print("Failed to retrieve last tick information")
         print("")
@@ -66,7 +82,20 @@ def fetch_account_info():
         margin_free_list.append(accountInfo.margin_free)
         pnl_list.append(f"{accountInfo.equity - accountInfo.balance:.2f}")
         type_list.append(df_credentials.iloc[i]["Type"])
-    columns = ["ID", "Name", "Location", "Balance", "Equity", "Margin", "Free Margin", "Floating PnL", "Type"]
+        Server_Time.append(last_tick_time_datetime)
+        Local_Time.append(local_time_mst)
+        # TODO: CALCULATION
+        if 'demo' not in df_credentials.iloc[i]["Type"]:
+            percentage_difference_balance.append((accountInfo.equity-df_credentials.iloc[i]["Starting_Day_Balance"])/df_credentials.iloc[i]["Starting_Day_Balance"])
+            percentage_difference_equity.append((accountInfo.equity-df_credentials.iloc[i]["Starting_Day_Equity"])/df_credentials.iloc[i]["Starting_Day_Equity"])
+            loss_threshold.append(df_credentials.iloc[i]["Today_Loss_Threshold"])
+        else:
+            percentage_difference_balance.append('N/A')
+            percentage_difference_equity.append('N/A')
+            loss_threshold.append('N/A')
+        
+        
+    columns = ["ID", "Name", "Location", "Balance", "Equity", "Margin", "Free Margin", "Floating PnL", "Type", "% Difference Balance", "% Difference Equity", "Loss Threshold", "Server Time", "Local Time"]
 
     df_data = pd.DataFrame(columns=columns)
     # print(type_list)
@@ -80,6 +109,12 @@ def fetch_account_info():
     df_data["Free Margin"] = margin_free_list
     df_data["Floating PnL"] = pnl_list
     df_data["Type"] = type_list
+    df_data["Server Time"] = Server_Time
+    df_data["Local Time"] = Local_Time
+    df_data["% Difference Balance"] = percentage_difference_balance
+    df_data["% Difference Equity"] = percentage_difference_equity
+    df_data["Loss Threshold"] = loss_threshold
+    
 
     df_data.to_csv('api_web.csv', index=False, mode='w')
 
