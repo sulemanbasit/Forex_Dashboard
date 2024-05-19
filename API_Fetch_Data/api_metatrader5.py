@@ -6,16 +6,14 @@ mt5.initialize()
 import pandas as pd
 from datetime import datetime, timezone
 import time
-# Read the CSV file into a DataFrame
-df_credentials = pd.read_csv('../../api_credentials.csv') # fetch in root folder of nextcloud
 
-#test
-# Print the DataFrame
-# for i in range(df.shape[0]):
-#     print(df.iloc[i]["Login"])
-print(df_credentials)
 
 def fetch_account_info():
+    # Read the CSV file into a DataFrame
+    df_credentials = pd.read_csv('../../api_credentials.csv') # fetch in root folder of nextcloud
+
+    print(df_credentials)
+    
     login_list = []
     alias_list = []
     location_list = []
@@ -42,7 +40,7 @@ def fetch_account_info():
 
         # This is needed to extract server time
         # Define the symbol to fetch the last tick time
-        symbol = "BTCUSD_"  # Change this to the symbol you are interested in
+        symbol = "EURUSD"  # Change this to the symbol you are interested in
 
         # Request the last tick for the symbol
         last_tick = mt5.symbol_info_tick(symbol)
@@ -66,7 +64,7 @@ def fetch_account_info():
         equity_list.append(accountInfo.equity)
         margin_list.append(accountInfo.margin)
         margin_free_list.append(accountInfo.margin_free)
-        pnl_list.append(accountInfo.equity - accountInfo.balance)
+        pnl_list.append(f"{accountInfo.equity - accountInfo.balance:.2f}")
         type_list.append(df_credentials.iloc[i]["Type"])
     columns = ["ID", "Name", "Location", "Balance", "Equity", "Margin", "Free Margin", "Floating PnL", "Type"]
 
@@ -96,7 +94,7 @@ try:
         count += 1
         print()
         print("INFORMATION FETCHED " + str(count) + " TIMES")
-        time.sleep(10)
+        time.sleep(5)
 except KeyboardInterrupt:
     print("Stopped by user")
 finally:
