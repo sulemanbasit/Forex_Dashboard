@@ -6,6 +6,7 @@ mt5.initialize()
 import pandas as pd
 from datetime import datetime, timezone, timedelta
 import time
+import pytz
 
 
 def fetch_account_info():
@@ -66,10 +67,28 @@ def fetch_account_info():
             MST = timezone(timedelta(hours=-7))  # MST is UTC-7
 
             # Convert the server time to MST
-            local_time_mst = last_tick_time_datetime.astimezone(MST)
-            print("Local time (MST):", local_time_mst)
+            # local_time_mst = last_tick_time_datetime.astimezone(MST)
+            # print("Local time (MST):", local_time_mst)
         else:
             print("Failed to retrieve last tick information")
+        
+        # Set the desired time zone, for example, "US/Mountain" for Mountain Time (MT), which is UTC-7 during standard time.
+        # Adjust this to the appropriate time zone as needed.
+        timezone = pytz.timezone('US/Mountain')
+        
+        # Get the current time in the specified time zone
+        local_time = datetime.now(timezone)
+
+        # Format the time as specified
+        formatted_time = local_time.strftime('%Y-%m-%d %H:%M:%S%z')
+
+        # Adjust the format to include a colon in the timezone offset
+        formatted_time_with_colon = formatted_time[:-2] + ':' + formatted_time[-2:]
+        
+        local_time_mst = formatted_time_with_colon
+        
+        print("Local time (MST):", local_time_mst)
+        
         print("")
 
         login_list.append(accountInfo.login)
