@@ -19,7 +19,6 @@ def fetch_account_info():
     location_list = []
     balance_list = []
     equity_list = []
-    # loss_margin = []
     margin_list = []
     margin_free_list = []
     pnl_list = []
@@ -86,8 +85,8 @@ def fetch_account_info():
         Local_Time.append(local_time_mst)
         # TODO: CALCULATION
         if 'demo' not in df_credentials.iloc[i]["Type"]:
-            percentage_difference_balance.append((accountInfo.equity-df_credentials.iloc[i]["Starting_Day_Balance"])/df_credentials.iloc[i]["Starting_Day_Balance"])
-            percentage_difference_equity.append((accountInfo.equity-df_credentials.iloc[i]["Starting_Day_Equity"])/df_credentials.iloc[i]["Starting_Day_Equity"])
+            percentage_difference_balance.append(f"{(accountInfo.equity-df_credentials.iloc[i]["Starting_Day_Balance"])/df_credentials.iloc[i]["Starting_Day_Balance"]:.2f}")
+            percentage_difference_equity.append(f"{(accountInfo.equity-df_credentials.iloc[i]["Starting_Day_Equity"])/df_credentials.iloc[i]["Starting_Day_Equity"]:.2f}")
             loss_threshold.append(df_credentials.iloc[i]["Today_Loss_Threshold"])
         else:
             percentage_difference_balance.append('N/A')
