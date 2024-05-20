@@ -74,10 +74,10 @@ def fetch_account_info():
         
         # Set the desired time zone, for example, "US/Mountain" for Mountain Time (MT), which is UTC-7 during standard time.
         # Adjust this to the appropriate time zone as needed.
-        timezone = pytz.timezone('US/Mountain')
+        tz = pytz.timezone('US/Mountain')
         
         # Get the current time in the specified time zone
-        local_time = datetime.now(timezone)
+        local_time = datetime.now(tz)
 
         # Format the time as specified
         formatted_time = local_time.strftime('%Y-%m-%d %H:%M:%S%z')
