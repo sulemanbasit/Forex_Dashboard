@@ -55,7 +55,7 @@
                         {% endfor %}
                     </tr>
                     {% for row in data %}
-                        {% if row.Type.lower() == 'funded' or row.Type.lower() == 'challenge' %}
+                        {% if 'funded' in row or 'challenge' in row %}
                         <tr class='table_row'>
                             {% for value in row %}
                                 <td class='table_cell'> {{ value }} </td>
@@ -80,7 +80,7 @@
                     {% endfor %}
                 </tr>
                 {% for row in data %}
-                    {% if row.Type.lower() == 'live' %}
+                    {% if 'live' in row %}
                     <tr class='table_row'>
                         {% for value in row %}
                             <td class='table_cell'> {{ value }} </td>
@@ -105,7 +105,7 @@
                     {% endfor %}
                 </tr>
                 {% for row in data %}
-                    {% if row.Type.lower() == 'demo' %}
+                    {% if 'demo' in row %}
                     <tr class='table_row'>
                         {% for value in row %}
                             <td class='table_cell'> {{ value }} </td>
